@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="750bd84e-852d-4840-8248-b80df26103ea" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/conf/fetch.php" afterPath="$PROJECT_DIR$/php-reflection-code/conf/fetch.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/library/model/doc_fetch.php" afterPath="$PROJECT_DIR$/php-reflection-code/library/model/doc_fetch.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/library/model/manual.php" afterPath="$PROJECT_DIR$/php-reflection-code/library/model/manual.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/library/model/parse.php" afterPath="$PROJECT_DIR$/php-reflection-code/library/model/parse.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/library/model/refdoc.php" afterPath="$PROJECT_DIR$/php-reflection-code/library/model/refdoc.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/memcached/Memcached.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/memcached/Memcached.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/memcached/MemcachedException.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/memcached/MemcachedException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/redis.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/redis.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Async.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Async.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Atomic.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Atomic.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Buffer.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Buffer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Channel.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Channel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Connection-Iterator.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Connection-Iterator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-Client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-Client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-Http-Client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-Http-Client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-MySQL-Exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-MySQL-Exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-MySQL.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-MySQL.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-Redis.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine-Redis.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Coroutine.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Event.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Event.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Request.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Request.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Response.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Response.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Http-Server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Lock.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Lock.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Mmap.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Mmap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Module.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Module.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-MySQL-Exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-MySQL-Exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-MySQL.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-MySQL.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Process.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Process.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Redis-Server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Redis-Server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Redis.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Redis.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Serialize.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Serialize.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Server-Port.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Server-Port.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Table.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Table.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Timer.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-Timer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-WebSocket-Frame.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-WebSocket-Frame.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-WebSocket-Server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/Swoole-WebSocket-Server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_async.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_async.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_atomic.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_atomic.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_buffer.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_buffer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_channel.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_channel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_client_coro.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_client_coro.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_connection_iterator.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_connection_iterator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_coroutine.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_coroutine.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_event.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_event.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_client_coro.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_client_coro.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_request.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_request.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_response.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_response.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_http_server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_lock.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_lock.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_mmap.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_mmap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_module.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_module.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_mysql.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_mysql.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_mysql_exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_mysql_exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_process.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_process.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_redis.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_redis.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_redis_server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_redis_server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_serialize.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_serialize.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_server_port.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_server_port.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_table.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_table.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_timer.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_timer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_websocket_frame.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_websocket_frame.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_websocket_server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/swoole/swoole_websocket_server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yac.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yac.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaconf.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaconf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-action-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-action-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-application.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-application.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-bootstrap-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-bootstrap-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-config-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-config-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-config-ini.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-config-ini.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-config-simple.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-config-simple.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-controller-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-controller-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-dispatcher.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-dispatcher.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-dispatchfailed.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-dispatchfailed.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-action.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-action.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-controller.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-controller.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-module.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-module.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-view.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed-view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-loadfailed.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-routerfailed.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-routerfailed.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-startuperror.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-startuperror.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-typeerror.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception-typeerror.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-loader.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-loader.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-plugin-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-plugin-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-registry.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-registry.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-request-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-request-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-request-http.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-request-http.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-request-simple.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-request-simple.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-response-abstract.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-response-abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-response-cli.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-response-cli.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-response-http.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-response-http.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-interface.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-interface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-map.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-map.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-regex.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-regex.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-rewrite.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-rewrite.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-simple.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-simple.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-static.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-static.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-supervar.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-route-supervar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-router.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-router.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-session.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-session.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-view-interface.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-view-interface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-view-simple.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yaf/yaf-view-simple.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-packager-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-packager-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-protocol-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-protocol-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-transport-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client-transport-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-concurrent-client.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-concurrent-client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-output-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-output-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-packager-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-packager-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-protocol-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-protocol-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-request-exception.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server-request-exception.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server.php" afterPath="$PROJECT_DIR$/php-reflection-code/php_docs_code/yar/yar-server.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-reflection-code/reflection-code.php" afterPath="$PROJECT_DIR$/php-reflection-code/reflection-code.php" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="start_swoole_server.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/start_swoole_server.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Start.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Start.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>swoole编译缺少</find>
+      <find>SwooleDispatchClient</find>
+      <find>NormalRoute</find>
+      <find>LOG_DIR</find>
+      <find>TestController</find>
+      <find>overrideSetConfig</find>
+      <find>health</find>
+      <find>$routes</find>
+      <find>routes</find>
+      <find>shell_read</find>
+      <find>test_coroutine</find>
+      <find>get_instance</find>
+      <find>RedisAsynPool</find>
+      <find>i</find>
+      <find>inclue</find>
+      <find>inclu</find>
+      <find>include</find>
+    </findStrings>
+    <dirStrings>
+      <dir>H:\SwooleDistributed</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/php-reflection-code" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Install.php" />
+        <option value="$PROJECT_DIR$/src/config/log.php" />
+        <option value="$PROJECT_DIR$/src/bin/define.php" />
+        <option value="$PROJECT_DIR$/src/config/mysql.php" />
+        <option value="$PROJECT_DIR$/src/config/redis.php" />
+        <option value="$PROJECT_DIR$/bin/test/start_swoole_client.php" />
+        <option value="$PROJECT_DIR$/src/config/business.php" />
+        <option value="$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Route/NormalRoute.php" />
+        <option value="$PROJECT_DIR$/src/app/Route/NormalRoute.php" />
+        <option value="$PROJECT_DIR$/src/app/Models/AppModel.php" />
+        <option value="$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/SwooleDistributedServer.php" />
+        <option value="$PROJECT_DIR$/src/app/AppServer.php" />
+        <option value="$PROJECT_DIR$/src/app/Models/Test.php" />
+        <option value="$PROJECT_DIR$/src/app/Controllers/Test.php" />
+        <option value="$PROJECT_DIR$/src/app/Models/TestModel.php" />
+        <option value="$PROJECT_DIR$/src/app/Controllers/AppController.php" />
+        <option value="$PROJECT_DIR$/src/app/Models/DadayiModel.php" />
+        <option value="$PROJECT_DIR$/src/app/Controllers/DadayiController.php" />
+        <option value="$PROJECT_DIR$/src/config/timerTask.php" />
+        <option value="$PROJECT_DIR$/src/app/Tasks/TestTask.php" />
+        <option value="$PROJECT_DIR$/src/app/Controllers/TestController.php" />
+        <option value="$USER_HOME$/Documents/NetSarang/Xftp/Temporary/config.inc.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SwooleDistributed" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SwooleDistributed" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SwooleDistributed" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SwooleDistributed" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="750bd84e-852d-4840-8248-b80df26103ea" name="Default" comment="" />
+      <created>1503994062471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1503994062471</updated>
+      <workItem from="1503994063727" duration="110000" />
+      <workItem from="1503994180624" duration="693000" />
+      <workItem from="1504083075493" duration="43484000" />
+      <workItem from="1504579316358" duration="2841000" />
+      <workItem from="1504682632521" duration="606000" />
+      <workItem from="1504702152286" duration="666000" />
+      <workItem from="1504766699131" duration="616000" />
+      <workItem from="1504786999147" duration="8587000" />
+      <workItem from="1505807968857" duration="217000" />
+      <workItem from="1505808197048" duration="1144000" />
+      <workItem from="1505978491975" duration="295000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="84556000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18603411" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1716418" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/app/Controllers/DadayiController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Models/AppModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="26" lean-forward="true" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Tasks/AppTask.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="15" column="29" lean-forward="true" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/CoreBase/Child.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="88" column="20" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/timerTask.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Views/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Views/error_404.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3360">
+          <caret line="112" column="9" lean-forward="false" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Coroutine/Coroutine.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="91" column="27" lean-forward="false" selection-start-line="91" selection-start-column="27" selection-end-line="91" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/CoreBase/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="99" column="20" lean-forward="false" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/SwooleServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="282" column="17" lean-forward="true" selection-start-line="282" selection-start-column="17" selection-end-line="282" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/SwooleHttpServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="70" column="27" lean-forward="false" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/CoreBase/Loader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/consul.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/CoreBase/TaskProxy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="63" column="20" lean-forward="false" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/mysql.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/graylog2/gelf-php/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/CHANGERLOG.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/test/ServerControllerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1365">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/test/ServerMysqlTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3375">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/config.inc [3].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/config.inc [2].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/config.inc.php" />
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Asyn/Mysql/Miner.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="290" column="20" lean-forward="false" selection-start-line="290" selection-start-column="20" selection-end-line="290" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Asyn/Mysql/MysqlAsynPool.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/SwooleDistributedServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="27" column="57" lean-forward="false" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
+          <folding>
+            <element signature="e#26#54#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [29].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [30].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [31].php" />
+    <entry file="file://$PROJECT_DIR$/src/lua/sadd_from_count.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="11" lean-forward="true" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [34].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [35].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [38].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [39].php" />
+    <entry file="file://$USER_HOME$/Documents/NetSarang/Xftp/Temporary/PlayNum20170904 [40].php" />
+    <entry file="file://$PROJECT_DIR$/src/app/Models/TestModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Controllers/AppController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/php-reflection-code/fetch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/psr/log/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/php-ds/php-ds/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/monolog/monolog/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/bin/protobuf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/helpers/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/helpers/Common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2235">
+          <caret line="76" column="9" lean-forward="false" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Tasks/TestTask.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/AppServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding>
+            <element signature="e#22#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/Controllers/TestController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+          <folding>
+            <element signature="e#35#60#0#PHP" expanded="true" />
+            <marker date="1504269322666" expanded="true" signature="1621:2091" ph="CREATE TABLE... IF" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/SwooleWebSocketServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="47" column="73" lean-forward="false" selection-start-line="47" selection-start-column="73" selection-end-line="47" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/start_swoole_server.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/CoreBase/PortManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="88" column="74" lean-forward="true" selection-start-line="88" selection-start-column="74" selection-end-line="88" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/tmtbe/swooledistributed/src/Server/Start.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

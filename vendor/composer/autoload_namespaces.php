@@ -6,5 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'google\\protobuf' => array($vendorDir . '/protobuf-php/google-protobuf-proto/src'),
 );

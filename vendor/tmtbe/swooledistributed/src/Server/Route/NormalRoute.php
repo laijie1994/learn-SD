@@ -45,8 +45,16 @@ class NormalRoute implements IRoute
     {
         $this->client_data->path = $request->server['path_info'];
         $route = explode('/', $request->server['path_info']);
-        $this->client_data->controller_name = $route[1]??null;
-        $this->client_data->method_name = $route[2]??null;
+        $count = count($route);
+        if ($count == 2) {
+            $this->client_data->controller_name = $route[$count - 1] ?? null;
+            $this->client_data->method_name = null;
+            return;
+        }
+        $this->client_data->method_name = $route[$count - 1] ?? null;
+        unset($route[$count - 1]);
+        unset($route[0]);
+        $this->client_data->controller_name = implode("\\", $route);
     }
 
     /**
@@ -69,7 +77,7 @@ class NormalRoute implements IRoute
 
     public function getPath()
     {
-        return $this->client_data->path;
+        return $this->client_data->path ?? "";
     }
 
     public function getParams()
@@ -77,8 +85,18 @@ class NormalRoute implements IRoute
         return $this->client_data->params??null;
     }
 
-    public function errorHandle($e, $fd)
+    public function errorHandle(\Exception $e, $fd)
     {
-        //get_instance()->close($fd);
+        get_instance()->send($fd, "Error:" . $e->getMessage(), true);
+        get_instance()->close($fd);
+    }
+
+    public function errorHttpHandle(\Exception $e, $request, $response)
+    {
+        //重定向到404
+        $response->status(302);
+        $location = 'http://' . $request->header['host'] . "/" . '404';
+        $response->header('Location', $location);
+        $response->end('');
     }
 }

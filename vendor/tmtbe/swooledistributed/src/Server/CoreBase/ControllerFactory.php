@@ -1,5 +1,8 @@
 <?php
+
 namespace Server\CoreBase;
+
+use Server\Components\AOP\AOP;
 
 /**
  * 控制器工厂模式
@@ -15,6 +18,7 @@ class ControllerFactory
      */
     private static $instance;
     private $pool = [];
+    private $allow_ServerController = true;
 
     /**
      * ControllerFactory constructor.
@@ -22,6 +26,7 @@ class ControllerFactory
     public function __construct()
     {
         self::$instance = $this;
+        $this->allow_ServerController = get_instance()->config->get('allow_ServerController', "true");
     }
 
     /**
@@ -44,26 +49,34 @@ class ControllerFactory
     public function getController($controller)
     {
         if ($controller == null) return null;
-        $controllers = $this->pool[$controller]??null;
+        $controllers = $this->pool[$controller] ?? null;
         if ($controllers == null) {
             $controllers = $this->pool[$controller] = new \SplQueue();
         }
         if (!$controllers->isEmpty()) {
             $controller_instance = $controllers->shift();
             $controller_instance->reUse();
-            return $controller_instance;
+            return AOP::getAOP($controller_instance);
+        }
+        if (class_exists($controller)) {
+            $controller_instance = new $controller;
+            $controller_instance->core_name = $controller;
+            return AOP::getAOP($controller_instance);
         }
         $class_name = "app\\Controllers\\$controller";
         if (class_exists($class_name)) {
             $controller_instance = new $class_name;
             $controller_instance->core_name = $controller;
-            return $controller_instance;
+            return AOP::getAOP($controller_instance);
         } else {
+            if (!$this->allow_ServerController) {
+                return null;
+            }
             $class_name = "Server\\Controllers\\$controller";
             if (class_exists($class_name)) {
                 $controller_instance = new $class_name;
                 $controller_instance->core_name = $controller;
-                return $controller_instance;
+                return AOP::getAOP($controller_instance);
             } else {
                 return null;
             }

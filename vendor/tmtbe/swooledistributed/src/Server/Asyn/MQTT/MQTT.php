@@ -6,7 +6,6 @@
 
 namespace Server\Asyn\MQTT;
 
-use Server\Asyn\MQTT\Exception\NetworkError;
 use Server\Asyn\MQTT\Message\Base;
 use Server\Asyn\MQTT\Message\Will;
 
@@ -15,7 +14,7 @@ use Server\Asyn\MQTT\Message\Will;
  *
  * @package Server\Asyn\MQTT
  */
-class MQTT
+class MQTT implements IMqtt
 {
     /**
      * Client ID
@@ -287,6 +286,8 @@ class MQTT
             # default client id
             if (empty($this->clientid)) {
                 $this->clientid = 'mqtt' . substr(md5(uniqid('mqtt', true)), 8, 16);
+            } else {
+                $connectobj->setClientId($this->clientid);
             }
             Debug::Log(Debug::DEBUG, 'connect(): clientid=' . $this->clientid);
 
@@ -934,12 +935,7 @@ class MQTT
      */
     protected function message_read($data)
     {
-        $bytes = array();
-        for ($i = 0; $i < strlen($data); $i++) {
-            $bytes[] = ord($data[$i]);
-        }
-        $cmd = Utility::ParseCommand($bytes[0]);
-
+        $cmd = Utility::ParseCommand(ord($data[0]));
         $message_type = $cmd['message_type'];
         $flags = $cmd['flags'];
         Debug::Log(Debug::DEBUG, "message_read(): message_type=" . Message::$name[$message_type] . ", flags={$flags}");

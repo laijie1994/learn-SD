@@ -25,6 +25,7 @@ class PortManager
     const SOCK_UDP6 = SWOOLE_SOCK_UDP6;
     const UNIX_DGRAM = SWOOLE_UNIX_DGRAM;
     const UNIX_STREAM = SWOOLE_UNIX_STREAM;
+    const SWOOLE_SSL = SWOOLE_SSL;
     const SOCK_HTTP = 10;
     const SOCK_WS = 11;
     const WEBSOCKET_OPCODE_TEXT = WEBSOCKET_OPCODE_TEXT;
@@ -32,6 +33,7 @@ class PortManager
 
     protected $packs = [];
     protected $routes = [];
+    protected $middlewares = [];
     protected $portConfig;
     public $websocket_enable = false;
     public $http_enable = false;
@@ -83,29 +85,54 @@ class PortManager
     {
         foreach ($this->portConfig as $key => $value) {
             if ($value['socket_port'] == $first_port) continue;
+            //获得set
+            $set = $this->getProbufSet($value['socket_port']);
+            if (array_key_exists('ssl_cert_file', $value)) {
+                $set['ssl_cert_file'] = $value['ssl_cert_file'];
+            }
+            if (array_key_exists('ssl_key_file', $value)) {
+                $set['ssl_key_file'] = $value['ssl_key_file'];
+            }
+            $socket_ssl = $value['socket_ssl'] ?? false;
             if ($value['socket_type'] == self::SOCK_HTTP || $value['socket_type'] == self::SOCK_WS) {
-                $port = $swoole_server->server->listen($value['socket_name'], $value['socket_port'], SWOOLE_SOCK_TCP);
+                if ($socket_ssl) {
+                    $port = $swoole_server->server->listen($value['socket_name'], $value['socket_port'], self::SOCK_TCP | self::SWOOLE_SSL);
+                } else {
+                    $port = $swoole_server->server->listen($value['socket_name'], $value['socket_port'], self::SOCK_TCP);
+                }
                 if ($port == false) {
                     throw new \Exception("{$value['socket_port']}端口创建失败");
                 }
                 if ($value['socket_type'] == self::SOCK_HTTP) {
-                    $port->on('request', [$swoole_server, 'onSwooleRequest']);
+                    $set['open_http_protocol'] = true;
+                    $port->set($set);
+                    $port->on('request', [$swoole_server, $value['request'] ?? 'onSwooleRequest']);
                     $port->on('handshake', function () {
                         return false;
                     });
                 } else {
-                    $port->on('open', [$swoole_server, 'onSwooleWSOpen']);
-                    $port->on('message', [$swoole_server, 'onSwooleWSMessage']);
-                    $port->on('close', [$swoole_server, 'onSwooleWSClose']);
-                    $port->on('handshake', [$swoole_server, 'onSwooleWSHandShake']);
+                    $set['open_http_protocol'] = true;
+                    $set['open_websocket_protocol'] = true;
+                    $port->set($set);
+                    $port->on('open', [$swoole_server, $value['open'] ?? 'onSwooleWSOpen']);
+                    $port->on('message', [$swoole_server, $value['message'] ?? 'onSwooleWSMessage']);
+                    $port->on('close', [$swoole_server, $value['close'] ?? 'onSwooleWSClose']);
+                    $port->on('handshake', [$swoole_server, $value['handshake'] ?? 'onSwooleWSHandShake']);
                 }
             } else {
-                $port = $swoole_server->server->listen($value['socket_name'], $value['socket_port'], $value['socket_type']);
-                $port->set($this->getProbufSet($value['socket_port']));
-                $port->on('connect', [$swoole_server, 'onSwooleConnect']);
-                $port->on('receive', [$swoole_server, 'onSwooleReceive']);
-                $port->on('close', [$swoole_server, 'onSwooleClose']);
-                $port->on('packet', [$swoole_server, 'onSwoolePacket']);
+                if ($socket_ssl) {
+                    $port = $swoole_server->server->listen($value['socket_name'], $value['socket_port'], $value['socket_type'] | self::SWOOLE_SSL);
+                } else {
+                    $port = $swoole_server->server->listen($value['socket_name'], $value['socket_port'], $value['socket_type']);
+                }
+                if ($port == false) {
+                    throw new \Exception("{$value['socket_port']}端口创建失败");
+                }
+                $port->set($set);
+                $port->on('connect', [$swoole_server, $value['connect'] ?? 'onSwooleConnect']);
+                $port->on('receive', [$swoole_server, $value['receive'] ?? 'onSwooleReceive']);
+                $port->on('close', [$swoole_server, $value['close'] ?? 'onSwooleClose']);
+                $port->on('packet', [$swoole_server, $value['packet'] ?? 'onSwoolePacket']);
             }
 
         }
@@ -121,6 +148,9 @@ class PortManager
             $this->packs[$value['socket_port']] = self::createPack($value['pack_tool']);
         }
         $this->routes[$value['socket_port']] = self::createRoute($value['route_tool']);
+        foreach ($value['middlewares'] ?? [] as $middleware) {
+            $this->middlewares[$value['socket_port']][] = $this->createMiddleware($middleware);
+        }
     }
 
     /**
@@ -130,6 +160,10 @@ class PortManager
      */
     public static function createPack($pack_tool)
     {
+        if (class_exists($pack_tool)) {
+            $pack = new $pack_tool;
+            return $pack;
+        }
         //pack class
         $pack_class_name = "app\\Pack\\" . $pack_tool;
         if (class_exists($pack_class_name)) {
@@ -152,6 +186,10 @@ class PortManager
      */
     public static function createRoute($route_tool)
     {
+        if (class_exists($route_tool)) {
+            $route = new $route_tool;
+            return $route;
+        }
         $route_class_name = "app\\Route\\" . $route_tool;
         if (class_exists($route_class_name)) {
             $route = new $route_class_name;
@@ -167,12 +205,45 @@ class PortManager
     }
 
     /**
+     * @param $middleware_name
+     * @return mixed
+     * @throws SwooleException
+     */
+    protected function createMiddleware($middleware_name)
+    {
+        if (class_exists($middleware_name)) {
+            return $middleware_name;
+        }
+        $middleware_class_name = "app\\Middlewares\\" . $middleware_name;
+        if (class_exists($middleware_class_name)) {
+            return $middleware_class_name;
+        } else {
+            $middleware_class_name = "Server\\Middlewares\\" . $middleware_name;
+            if (class_exists($middleware_class_name)) {
+                return $middleware_class_name;
+            } else {
+                throw new SwooleException("class $middleware_name is not exist.");
+            }
+        }
+    }
+
+    /**
      * @param $port
      * @return IPack
      */
     public function getPack($port)
     {
         return $this->packs[$port] ?? null;
+    }
+
+    /**
+     * @param $fd
+     * @return IPack
+     */
+    public function getPackFromFd($fd)
+    {
+        $port = get_instance()->getServerPort($fd);
+        return $this->getPack($port);
     }
 
     /**
@@ -184,6 +255,14 @@ class PortManager
         return $this->routes[$port] ?? null;
     }
 
+    /**
+     * @param $port
+     * @return null
+     */
+    public function getMiddlewares($port)
+    {
+        return $this->middlewares[$port] ?? [];
+    }
     /**
      * @param $port
      * @return mixed

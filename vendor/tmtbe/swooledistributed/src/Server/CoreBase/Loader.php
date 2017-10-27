@@ -9,6 +9,7 @@
 
 namespace Server\CoreBase;
 
+use Server\Components\AOP\AOP;
 use Server\Memory\Pool;
 
 class Loader implements ILoader
@@ -34,20 +35,20 @@ class Loader implements ILoader
         if (empty($model)) {
             return null;
         }
-        if ($model == $parent->core_name) {
-            return $parent;
-        }
         $root = $parent;
         while (isset($root)) {
+            if ($model == $root->core_name) {
+                return AOP::getAOP($root);
+            }
             if ($root->hasChild($model)) {
                 return $root->getChild($model);
             }
             $root = $root->parent??null;
         }
-        $model_instance = $this->_model_factory->getModel($model, $parent);
+        $model_instance = $this->_model_factory->getModel($model);
         $parent->addChild($model_instance);
         $model_instance->initialization($parent->getContext());
-        return $model_instance;
+        return AOP::getAOP($model_instance);
     }
 
     /**
@@ -62,20 +63,24 @@ class Loader implements ILoader
         if (empty($task)) {
             return null;
         }
-        $task = str_replace('/', '\\', $task);
-        $task_class = "app\\Tasks\\" . $task;
-        if (!class_exists($task_class)) {
-            $task_class = "Server\\Tasks\\" . $task;
+        if (class_exists($task)) {
+            $task_class = $task;
+        } else {
+            $task = str_replace('/', '\\', $task);
+            $task_class = "app\\Tasks\\" . $task;
             if (!class_exists($task_class)) {
-                throw new SwooleException("class task_class not exists");
+                $task_class = "Server\\Tasks\\" . $task;
+                if (!class_exists($task_class)) {
+                    throw new SwooleException("class task_class not exists");
+                }
             }
         }
         if (!get_instance()->server->taskworker) {//工作进程返回taskproxy
-            $this->_task_proxy->core_name = $task;
+            $this->_task_proxy->core_name = $task_class;
             if ($parent != null) {
                 $this->_task_proxy->setContext($parent->getContext());
             }
-            return $this->_task_proxy;
+            return AOP::getAOP($this->_task_proxy);
         }
         $task_instance = Pool::getInstance()->get($task_class);
         $task_instance->reUse();

@@ -9,18 +9,18 @@
 namespace Server\Coroutine;
 
 
-use Server\CoreBase\SwooleException;
 use Server\Memory\Pool;
 
 class CoroutineTask
 {
-    protected $stack;
-    protected $routine;
     /**
-     * @var GeneratorContext
+     * @var \SplStack
      */
-    protected $generatorContext;
-    protected $isError = false;
+    protected $stack;
+    /**
+     * @var \Generator
+     */
+    protected $routine;
 
 
     public function __construct()
@@ -31,14 +31,12 @@ class CoroutineTask
     /**
      * 对象池模式代替__construct
      * @param \Generator $routine
-     * @param GeneratorContext $generatorContext
      * @return $this
      */
-    public function init(\Generator $routine, GeneratorContext $generatorContext)
+    public function init(\Generator $routine)
     {
         $this->stack = new \SplStack();
         $this->routine = $routine;
-        $this->generatorContext = $generatorContext;
         return $this;
     }
 
@@ -47,93 +45,71 @@ class CoroutineTask
      */
     public function run()
     {
-        if ($this->isError) {//已经出错了就直接return
+        if (!$this->routine) {//已经出错了就直接return
             return;
         }
-        $routine = &$this->routine;
-        $flag = false;
-        if (!$routine) {
-            return;
-        }
-        $value = null;
         try {
-            $value = $routine->current();
-            $flag = true;
+            $value = $this->routine->current();
             //嵌套的协程
             if ($value instanceof \Generator) {
-                $this->generatorContext->addYieldStack($routine->key());
-                $this->stack->push($routine);
-                $routine = $value;
+                $this->stack->push($this->routine);
+                $this->routine = $value;
+                $this->run();
                 return;
             }
+            //ICoroutineBase
             if ($value != null && $value instanceof ICoroutineBase) {
                 $result = $value->getResult();
                 if ($result !== CoroutineNull::getInstance()) {
-                    $routine->send($result);
-                    $value->destroy();
-                } else {
-                    return;
-                }
-                //嵌套的协程返回
-                while (!$routine->valid() && !$this->stack->isEmpty()) {
-                    $result = $routine->getReturn();
-                    $this->routine = $this->stack->pop();
                     $this->routine->send($result);
-                    $this->generatorContext->popYieldStack();
-                }
-            } else {
-                if ($routine->valid()) {
-                    $routine->send($value);
-                } else {
-                    //获得不到return说明可能是抛出了异常，这里可以停止了
-                    try {
-                        $result = $routine->getReturn();
-                        if (count($this->stack) > 0) {
-                            $this->routine = $this->stack->pop();
-                            $this->routine->send($result);
-                        }
-                    } catch (\Exception $e) {
-                        if (!$this->isError) {
-                            $this->routine->throw($e);
-                        }
-                        $this->isError = true;
+                    $value->destroy();
+                    if (!$this->stack->isEmpty()) {
+                        $this->run();
                     }
+                } else {
+                    $value->setCoroutineTask($this);
                 }
+                return;
+            }
+            //无效的
+            if ($this->routine->valid()) {
+                $this->routine->send($value);
+                if (!$this->stack->isEmpty()) {
+                    $this->run();
+                }
+                return;
+            }
+            //返回上级
+            try {
+                $result = $this->routine->getReturn();
+            } catch (\Exception $e) {
+                $result = '';
+            }
+            if (!$this->stack->isEmpty()) {
+                $this->routine = $this->stack->pop();
+                $this->routine->send($result);
+                $this->run();
             }
         } catch (\Exception $e) {
-            //这里$value如果是ICoroutineBase不需要进行销毁，否则有可能重复销毁
-            if ($flag) {
-                $this->generatorContext->addYieldStack($routine->key());
-            }
-            $this->generatorContext->setErrorFile($e->getFile(), $e->getLine());
-            $this->generatorContext->setErrorMessage($e->getMessage());
-            $this->throwEx($routine, $e);
+            $this->throwEx($this->routine, $e);
         }
     }
+
     /**
      * @param $routine
      * @param $e
      */
-    protected function throwEx($routine,$e){
+    protected function throwEx(\Generator $routine, $e)
+    {
         try {
             $routine->throw($e);
             $this->routine = $routine;
-        }catch (\Exception $e){
-            if($this->stack->isEmpty()){
-                $this->isError = true;
-                if ($e instanceof SwooleException) {
-                    $e->setShowOther($this->generatorContext->getTraceStack());
-                }
-                $call = [$this->generatorContext->getController(), 'onExceptionHandle'];
-                if ($this->generatorContext->getController() != null && is_callable($call)) {
-                    call_user_func($call, $e);
-                }else{
-                    $routine->throw($e);
-                }
-                return;
+            $this->run();
+        } catch (\Exception $e) {
+            if (!$this->stack->isEmpty()) {
+                $routine = $this->stack->pop();
+                $this->throwEx($routine, $e);
             }
-            $routine = $this->stack->pop();
-            $this->throwEx($routine,$e);
         }
     }
 
@@ -144,9 +120,9 @@ class CoroutineTask
     public function isFinished()
     {
         try {
-            $result = $this->isError || ($this->stack->isEmpty() && !$this->routine->valid());
-        }catch (\Exception $e){
-            $this->throwEx($this->routine,$e);
+            $result = $this->stack->isEmpty() && !$this->routine->valid();
+        } catch (\Exception $e) {
+            $this->throwEx($this->routine, $e);
             $result = true;
         }
         return $result;
@@ -162,8 +138,6 @@ class CoroutineTask
      */
     public function destroy()
     {
-        $this->generatorContext->destroy();
-        $this->generatorContext = null;
         $this->routine = null;
         $this->stack = null;
         $this->isError = false;

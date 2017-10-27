@@ -29,7 +29,7 @@ class TestTask extends Task
 
     public function contextTest()
     {
-        print_r($this->getContext());
+        //print_r($this->getContext());
     }
 
     public function test_task()
@@ -84,7 +84,7 @@ class TestTask extends Task
 
     public function testMysql()
     {
-        $result = yield $this->mysql_pool->dbQueryBuilder->select('*')->from('account')->coroutineSend();
-        return $result;
+        yield $this->mysql_pool->dbQueryBuilder->coroutineSend(null,
+            "update account set phone = 1 WHERE uid = 1");
     }
 }

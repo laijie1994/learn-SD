@@ -93,7 +93,7 @@ class ConsulLeader
     public function leader($index = 0)
     {
         $this->getSession(function ($id) use ($index) {
-            $data = ['ip' => $this->config['consul']['bind_addr']];
+            $data = ['ip' => getBindIp()];
             $this->consul_leader->setQuery(['acquire' => $id])
                 ->setData(json_encode($data))->setMethod('PUT')->execute("/v1/kv/servers/$this->leader_name/leader", function ($data) use ($index) {
                     $leader = $data['body'];
@@ -103,7 +103,7 @@ class ConsulLeader
                         $leader = false;
                     }
                     //发送到进程
-                    EventDispatcher::getInstance()->dispatch(ConsulHelp::LEADER_KEY, $leader);
+                    EventDispatcher::getInstance()->dispatch(ConsulHelp::LEADER_KEY, $leader, false, true);
                     //存儲在SDHelpProcess中
                     ProcessManager::getInstance()->getProcess(SDHelpProcess::class)
                         ->setData(ConsulHelp::LEADER_KEY, $leader);

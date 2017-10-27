@@ -8,6 +8,7 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Noodlehaus\Config;
 use Server\Components\GrayLog\UdpTransport;
+use Server\Components\Middleware\MiddlewareManager;
 use Server\CoreBase\Child;
 use Server\CoreBase\ControllerFactory;
 use Server\CoreBase\ILoader;
@@ -31,7 +32,7 @@ abstract class SwooleServer extends Child
     /**
      * 版本
      */
-    const version = "2.4.7";
+    const version = "2.6.4";
 
     /**
      * server name
@@ -93,6 +94,13 @@ abstract class SwooleServer extends Child
     protected $needCoroutine = true;
 
     /**
+     * @var MiddlewareManager
+     */
+    protected $middlewareManager;
+
+    protected $tcp_method_prefix;
+
+    /**
      * 设置monolog的loghandler
      */
     public function setLogHandler()
@@ -116,7 +124,8 @@ abstract class SwooleServer extends Child
         $this->onErrorHandel = [$this, 'onErrorHandel'];
         Start::initServer($this);
         // 加载配置
-        $this->config = new Config(CONFIG_DIR);
+        $this->config = new Config(getConfigDir());
+        $this->middlewareManager = new MiddlewareManager();
         $this->user = $this->config->get('server.set.user', '');
         $this->setLogHandler();
         register_shutdown_function(array($this, 'checkErrors'));
@@ -159,7 +168,20 @@ abstract class SwooleServer extends Child
     {
         if ($this->portManager->tcp_enable) {
             $first_config = $this->portManager->getFirstTypePort();
-            $this->server = new \swoole_server($first_config['socket_name'], $first_config['socket_port'], SWOOLE_PROCESS, $first_config['socket_type']);
+            $set = $this->portManager->getProbufSet($first_config['socket_port']);
+            if (array_key_exists('ssl_cert_file', $first_config)) {
+                $set['ssl_cert_file'] = $first_config['ssl_cert_file'];
+            }
+            if (array_key_exists('ssl_key_file', $first_config)) {
+                $set['ssl_key_file'] = $first_config['ssl_key_file'];
+            }
+            $socket_ssl = $first_config['socket_ssl'] ?? false;
+            if ($socket_ssl) {
+                $this->server = new \swoole_server($first_config['socket_name'], $first_config['socket_port'], SWOOLE_PROCESS, $first_config['socket_type'] | SWOOLE_SSL);
+            } else {
+                $this->server = new \swoole_server($first_config['socket_name'], $first_config['socket_port'], SWOOLE_PROCESS, $first_config['socket_type']);
+            }
+            $this->setServerSet($set);
             $this->server->on('Start', [$this, 'onSwooleStart']);
             $this->server->on('WorkerStart', [$this, 'onSwooleWorkerStart']);
             $this->server->on('connect', [$this, 'onSwooleConnect']);
@@ -173,7 +195,6 @@ abstract class SwooleServer extends Child
             $this->server->on('ManagerStart', [$this, 'onSwooleManagerStart']);
             $this->server->on('ManagerStop', [$this, 'onSwooleManagerStop']);
             $this->server->on('Packet', [$this, 'onSwoolePacket']);
-            $this->setServerSet($this->portManager->getProbufSet($first_config['socket_port']));
             $this->portManager->buildPort($this, $first_config['socket_port']);
             $this->beforeSwooleStart();
             $this->server->start();
@@ -197,7 +218,8 @@ abstract class SwooleServer extends Child
      */
     public function onSwooleStart($serv)
     {
-        Start::setMasterPid($serv->master_pid, $serv->manager_pid);
+        Start::setProcessTitle(getServerName() . '-Master');
+        $this->tcp_method_prefix = $this->config->get('tcp.method_prefix', '');
     }
 
     /**
@@ -214,16 +236,15 @@ abstract class SwooleServer extends Child
         if (function_exists('opcache_reset')) {
             opcache_reset();
         }
-        Start::setWorketPid($serv->worker_pid);
         // 重新加载配置
-        $this->config = $this->config->load(CONFIG_DIR);
+        $this->config = $this->config->load(getConfigDir());
         if (!$serv->taskworker) {//worker进程
             if ($this->needCoroutine) {//启动协程调度器
                 Coroutine::init();
             }
-            Start::setProcessTitle('SWD-Worker');
+            Start::setProcessTitle(getServerName() . "-Worker");
         } else {
-            Start::setProcessTitle('SWD-Tasker');
+            Start::setProcessTitle(getServerName() . "-Tasker");
         }
     }
 
@@ -234,7 +255,9 @@ abstract class SwooleServer extends Child
      */
     public function onSwooleConnect($serv, $fd)
     {
-
+        $method_name = $this->tcp_method_prefix . $this->getConnectMethodName();
+        $controller_instance = ControllerFactory::getInstance()->getController($this->getEventControllerName());
+        Coroutine::startCoroutine([$controller_instance, 'setClientData'], [null, $fd, null, $this->getEventControllerName(), $method_name, null]);
     }
 
     /**
@@ -251,47 +274,73 @@ abstract class SwooleServer extends Child
         if (!Start::$testUnity) {
             $fdinfo = $serv->connection_info($fd);
             $server_port = $fdinfo['server_port'];
+            $uid = $fdinfo['uid'] ?? 0;
+        } else {
+            $fd = 'self';
+            $uid = $fd;
         }
-        $route = $this->portManager->getRoute($server_port);
         $pack = $this->portManager->getPack($server_port);
-
         //反序列化，出现异常断开连接
         try {
             $client_data = $pack->unPack($data);
         } catch (\Exception $e) {
             $pack->errorHandle($e, $fd);
-            return null;
+            return;
         }
-        //client_data进行处理
-        try {
-            $client_data = $route->handleClientData($client_data);
-        } catch (\Exception $e) {
-            $route->errorHandle($e, $fd);
-            return null;
-        }
-        $controller_name = $route->getControllerName();
-        $controller_instance = ControllerFactory::getInstance()->getController($controller_name);
-        if ($controller_instance != null) {
-            if (Start::$testUnity) {
-                $fd = 'self';
-                $uid = $fd;
-            } else {
-                $uid = $fdinfo['uid'] ?? 0;
-            }
-            $method_name = $this->config->get('tcp.method_prefix', '') . $route->getMethodName();
-            $controller_instance->setClientData($uid, $fd, $client_data, $controller_name, $method_name);
+        Coroutine::startCoroutine(function () use ($client_data, $server_port, $fd, $uid) {
+            $middleware_names = $this->portManager->getMiddlewares($server_port);
+            $context = [];
+            $path = '';
+            $middlewares = $this->middlewareManager->create($middleware_names, $context, [$fd]);
+            //client_data进行处理
             try {
-                $call = [$controller_instance, &$method_name];
-                if (!is_callable($call)) {
-                    $method_name = 'defaultMethod';
+                yield $this->middlewareManager->before($middlewares);
+                $route = $this->portManager->getRoute($server_port);
+                try {
+                    $client_data = $route->handleClientData($client_data);
+                    $controller_name = $route->getControllerName();
+                    $method_name = $this->tcp_method_prefix . $route->getMethodName();
+                    $path = $route->getPath();
+                    $controller_instance = ControllerFactory::getInstance()->getController($controller_name);
+                    if ($controller_instance != null) {
+                        $controller_instance->setContext($context);
+                        yield $controller_instance->setClientData($uid, $fd, $client_data, $controller_name, $method_name, $route->getParams());
+                    } else {
+                        throw new \Exception('no controller');
+                    }
+                } catch (\Exception $e) {
+                    $route->errorHandle($e, $fd);
                 }
-                Coroutine::startCoroutine($call, $route->getParams());
             } catch (\Exception $e) {
-                call_user_func([$controller_instance, 'onExceptionHandle'], $e);
             }
-        }
-        return $controller_instance;
+
+            try {
+                yield $this->middlewareManager->after($middlewares, $path);
+            } catch (\Exception $e) {
+
+            }
+            $this->middlewareManager->destory($middlewares);
+            if (get_instance()->isDebug()) {
+                print_r($context);
+            }
+            unset($context);
+        });
     }
+
+    /**
+     * @return string
+     */
+    abstract function getEventControllerName();
+
+    /**
+     * @return string
+     */
+    abstract function getCloseMethodName();
+
+    /**
+     * @return string
+     */
+    abstract function getConnectMethodName();
 
     /**
      * onSwooleClose
@@ -300,7 +349,11 @@ abstract class SwooleServer extends Child
      */
     public function onSwooleClose($serv, $fd)
     {
-
+        $info = $serv->connection_info($fd, 0, true);
+        $uid = $info['uid'] ?? 0;
+        $method_name = $this->tcp_method_prefix . $this->getCloseMethodName();
+        $controller_instance = ControllerFactory::getInstance()->getController($this->getEventControllerName());
+        Coroutine::startCoroutine([$controller_instance, 'setClientData'], [$uid, $fd, null, $this->getEventControllerName(), $method_name, null]);
     }
 
     /**
@@ -374,7 +427,7 @@ abstract class SwooleServer extends Child
      */
     public function onSwooleManagerStart($serv)
     {
-        Start::setProcessTitle('SWD-Manager');
+        Start::setProcessTitle(getServerName() . '-Manager');
     }
 
     /**
@@ -404,7 +457,7 @@ abstract class SwooleServer extends Child
      * @param string $func
      * @return string
      */
-    public function packSerevrMessageBody($type, $message, string $func = null)
+    public function packServerMessageBody($type, $message, string $func = null)
     {
         $data['type'] = $type;
         $data['message'] = $message;
@@ -507,7 +560,7 @@ abstract class SwooleServer extends Child
      */
     public function isTaskWorker()
     {
-        return $this->server->taskworker;
+        return $this->server->taskworker ?? false;
     }
 
     /**
@@ -515,18 +568,17 @@ abstract class SwooleServer extends Child
      * @param $fd
      * @param $data
      * @param bool $ifPack
+     * @param null $topic
      */
-    public function send($fd, $data, $ifPack = false)
+    public function send($fd, $data, $ifPack = false, $topic = null)
     {
         if (!$this->server->exist($fd)) {
             return;
         }
         if ($ifPack) {
-            $fdinfo = $this->server->connection_info($fd);
-            $server_port = $fdinfo['server_port'];
-            $pack = $this->portManager->getPack($server_port);
+            $pack = $this->portManager->getPackFromFd($fd);
             if ($pack != null) {
-                $data = $pack->pack($data);
+                $data = $pack->pack($data, $topic);
             }
         }
         $this->server->send($fd, $data);

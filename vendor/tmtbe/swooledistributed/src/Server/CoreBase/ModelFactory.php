@@ -37,13 +37,13 @@ class ModelFactory
 
     /**
      * 获取一个model
-     * @param $model
+     * @param $old_model
      * @return mixed
      * @throws SwooleException
      */
-    public function getModel($model)
+    public function getModel($old_model)
     {
-        $model = str_replace('/', '\\', $model);
+        $model = str_replace('/', '\\', $old_model);
         if (!array_key_exists($model, $this->pool)) {
             $this->pool[$model] = [];
         }
@@ -52,15 +52,22 @@ class ModelFactory
             $model_instance->reUse();
             return $model_instance;
         }
+        if (class_exists($model)) {
+            $model_instance = new $model;
+            $model_instance->core_name = $old_model;
+            return $model_instance;
+        }
+
         $class_name = "app\\Models\\$model";
+
         if (class_exists($class_name)) {
             $model_instance = new $class_name;
-            $model_instance->core_name = $model;
+            $model_instance->core_name = $old_model;
         } else {
             $class_name = "Server\\Models\\$model";
             if (class_exists($class_name)) {
                 $model_instance = new $class_name;
-                $model_instance->core_name = $model;
+                $model_instance->core_name = $old_model;
             } else {
                 throw new SwooleException("class $model is not exist");
             }

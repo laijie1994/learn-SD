@@ -1,6 +1,5 @@
 <?php
 namespace Server\CoreBase;
-use Monolog\Logger;
 use Server\Memory\Pool;
 
 /**
@@ -35,14 +34,11 @@ class Task extends TaskProxy
         $this->setContext($context);
         $this->start_run_time = microtime(true);
         $this->context['task_name'] = "$task_name:$method_name";
+        $this->installMysqlPool($this->mysql_pool);
     }
 
     public function destroy()
     {
-        if($this->isEfficiencyMonitorEnable) {
-            $this->context['execution_time'] = (microtime(true) - $this->start_run_time) * 1000;
-            $this->log('Efficiency monitor', Logger::INFO);
-        }
         get_instance()->tid_pid_table->del($this->from_id.$this->task_id);
         parent::destroy();
         $this->task_id = 0;

@@ -80,10 +80,11 @@ class Controller extends CoreBase
 
     /**
      * Controller constructor.
+     * @param string $proxy
      */
-    final public function __construct()
+    public function __construct($proxy = ChildProxy::class)
     {
-        parent::__construct();
+        parent::__construct($proxy);
         $this->http_input = new HttpInput();
         $this->http_output = new HttpOutput($this);
     }
@@ -96,8 +97,10 @@ class Controller extends CoreBase
      * @param $client_data
      * @param $controller_name
      * @param $method_name
+     * @param $params
+     * @return \Generator
      */
-    public function setClientData($uid, $fd, $client_data, $controller_name, $method_name)
+    public function setClientData($uid, $fd, $client_data, $controller_name, $method_name, $params)
     {
         $this->uid = $uid;
         $this->fd = $fd;
@@ -110,7 +113,53 @@ class Controller extends CoreBase
             $this->isRPC = false;
         }
         $this->request_type = SwooleMarco::TCP_REQUEST;
-        $this->initialization($controller_name, $method_name);
+        yield $this->execute($controller_name, $method_name, $params);
+    }
+
+    /**
+     * 来自Http
+     * set http Request Response
+     * @param $request
+     * @param $response
+     * @param $controller_name
+     * @param $method_name
+     * @param $params
+     * @return \Generator
+     */
+    public function setRequestResponse($request, $response, $controller_name, $method_name, $params)
+    {
+        $this->request = $request;
+        $this->response = $response;
+        $this->http_input->set($request);
+        $this->http_output->set($request, $response);
+        $this->rpc_request_id = $this->http_input->header('rpc_request_id');
+        $this->isRPC = empty($this->rpc_request_id) ? false : true;
+        $this->request_type = SwooleMarco::HTTP_REQUEST;
+        yield $this->execute($controller_name, $method_name, $params);
+    }
+
+    /**
+     * @param $controller_name
+     * @param $method_name
+     * @param $params
+     * @return \Generator
+     */
+    protected function execute($controller_name, $method_name, $params)
+    {
+        if (!is_callable([$this, $method_name])) {
+            $this->context['raw_method_name'] = "$controller_name:$method_name";
+            $method_name = 'defaultMethod';
+        }
+        try {
+            yield $this->initialization($controller_name, $method_name);
+            if ($params == null) {
+                yield call_user_func([$this->getProxy(), $method_name]);
+            } else {
+                yield call_user_func_array([$this->getProxy(), $method_name], $params);
+            }
+        } catch (\Exception $e) {
+            yield $this->getProxy()->onExceptionHandle($e);
+        }
     }
 
     /**
@@ -123,37 +172,18 @@ class Controller extends CoreBase
     {
         if ($this->isRPC && !empty($this->rpc_request_id)) {
             //全链路监控保证调用的request_id唯一
-            $context = ['request_id' => $this->rpc_request_id];
+            $this->context['request_id'] = $this->rpc_request_id;
         } else {
-            $context = ['request_id' => time() . crc32($controller_name . $method_name . getTickTime() . rand(1, 10000000))];
+            $this->context['request_id'] = time() . crc32($controller_name . $method_name . getTickTime() . rand(1, 10000000));
         }
-        $context['controller_name'] = $controller_name;
-        $context['method_name'] = "$controller_name:$method_name";
-        $this->setContext($context);
-        $this->start_run_time = microtime(true);
+        $this->context['controller_name'] = $controller_name;
+        $this->context['method_name'] = "$controller_name:$method_name";
         if (get_instance()->isDebug()) {
             set_time_limit(1);
         }
-    }
-
-    /**
-     * 来自Http
-     * set http Request Response
-     * @param $request
-     * @param $response
-     * @param $controller_name
-     * @param $method_name
-     */
-    public function setRequestResponse($request, $response, $controller_name, $method_name)
-    {
-        $this->request = $request;
-        $this->response = $response;
-        $this->http_input->set($request);
-        $this->http_output->set($request, $response);
-        $this->rpc_request_id = $this->http_input->header('rpc_request_id');
-        $this->isRPC = empty($this->rpc_request_id) ? false : true;
-        $this->request_type = SwooleMarco::HTTP_REQUEST;
-        $this->initialization($controller_name, $method_name);
+        if ($this->mysql_pool != null) {
+            $this->installMysqlPool($this->mysql_pool);
+        }
     }
 
     /**
@@ -181,10 +211,9 @@ class Controller extends CoreBase
             return;
         }
         if ($e instanceof SwooleException) {
+            print_r($e->getMessage() . "\n");
+            print_context($this->getContext());
             $this->log($e->getMessage() . "\n" . $e->getTraceAsString(), Logger::ERROR);
-            if ($e->others != null) {
-                $this->log($e->others, Logger::NOTICE);
-            }
         }
         //可以重写的代码
         if ($handle == null) {
@@ -223,7 +252,7 @@ class Controller extends CoreBase
             get_instance()->send($this->fd, $data, true);
         }
         if ($destroy) {
-            $this->destroy();
+            $this->getProxy()->destroy();
         }
     }
 
@@ -234,10 +263,6 @@ class Controller extends CoreBase
     {
         if ($this->is_destroy) {
             return;
-        }
-        if ($this->isEfficiencyMonitorEnable) {
-            $this->context['execution_time'] = (microtime(true) - $this->start_run_time) * 1000;
-            $this->log('Efficiency monitor', Logger::INFO);
         }
         parent::destroy();
         $this->fd = null;
@@ -269,7 +294,7 @@ class Controller extends CoreBase
         if ($this->request_type == SwooleMarco::HTTP_REQUEST) {
             $this->redirect404();
         } else {
-            throw new SwooleException($this->context['method_name'] . ' method not exist');
+            throw new SwooleException($this->context['raw_method_name'] . ' method not exist');
         }
     }
 
@@ -277,6 +302,7 @@ class Controller extends CoreBase
      * sendToUid
      * @param $uid
      * @param $data
+     * @param bool $destroy
      * @throws SwooleException
      */
     protected function sendToUid($uid, $data, $destroy = true)
@@ -290,7 +316,7 @@ class Controller extends CoreBase
             get_instance()->sendToUid($uid, $data);
         }
         if ($destroy) {
-            $this->destroy();
+            $this->getProxy()->destroy();
         }
     }
 
@@ -312,7 +338,7 @@ class Controller extends CoreBase
             get_instance()->sendToUids($uids, $data);
         }
         if ($destroy) {
-            $this->destroy();
+            $this->getProxy()->destroy();
         }
     }
 
@@ -333,7 +359,7 @@ class Controller extends CoreBase
             get_instance()->sendToAll($data);
         }
         if ($destroy) {
-            $this->destroy();
+            $this->getProxy()->destroy();
         }
     }
 
@@ -379,7 +405,7 @@ class Controller extends CoreBase
         if (Start::$testUnity) {
             $this->testUnitSendStack[] = ['action' => 'unBindUid', 'uid' => $this->uid];
         } else {
-            get_instance()->unBindUid($this->uid, $this->fd);
+            get_instance()->unBindUid($this->uid);
         }
     }
 
@@ -395,7 +421,7 @@ class Controller extends CoreBase
             get_instance()->close($this->fd);
         }
         if ($autoDestroy) {
-            $this->destroy();
+            $this->getProxy()->destroy();
         }
     }
 
@@ -447,33 +473,33 @@ class Controller extends CoreBase
     }
 
     /**
-     * @param $sub
+     * @param $topic
      */
-    protected function addSub($sub)
+    protected function addSub($topic)
     {
         if (empty($this->uid)) return;
-        get_instance()->addSub($sub, $this->uid);
+        get_instance()->addSub($topic, $this->uid);
     }
 
     /**
-     * @param $sub
+     * @param $topic
      */
-    protected function removeSub($sub)
+    protected function removeSub($topic)
     {
         if (empty($this->uid)) return;
-        get_instance()->removeSub($sub, $this->uid);
+        get_instance()->removeSub($topic, $this->uid);
     }
 
     /**
-     * @param $sub
+     * @param $topic
      * @param $data
      * @param $destroy
      */
-    protected function sendPub($sub, $data, $destroy = true)
+    protected function sendPub($topic, $data, $destroy = true)
     {
-        get_instance()->pub($sub, $data);
+        get_instance()->pub($topic, $data);
         if ($destroy) {
-            $this->destroy();
+            $this->getProxy()->destroy();
         }
     }
 }

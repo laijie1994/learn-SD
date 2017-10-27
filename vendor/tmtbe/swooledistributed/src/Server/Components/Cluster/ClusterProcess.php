@@ -26,9 +26,8 @@ class ClusterProcess extends Process
 
     public function start($process)
     {
-        parent::start($process);
         if (get_instance()->isCluster()) {
-            $this->node_name = $this->config['consul']['node_name'];
+            $this->node_name = getNodeName();
             $this->map[$this->node_name] = new Set();
             foreach (get_instance()->server->connections as $fd) {
                 $fdinfo = get_instance()->server->connection_info($fd);
@@ -128,50 +127,62 @@ class ClusterProcess extends Process
 
     /**
      * 添加订阅
-     * @param $sub
+     * @param $topic
      * @param $uid
      */
-    public function my_addSub($sub, $uid)
+    public function my_addSub($topic, $uid)
     {
-        if (!isset($this->subArr[$sub])) {
-            $this->subArr[$sub] = new Set();
+        if (!isset($this->subArr[$topic])) {
+            $this->subArr[$topic] = new Set();
         }
-        $this->subArr[$sub]->add($uid);
+        $this->subArr[$topic]->add($uid);
     }
 
     /**
      * 移除订阅
-     * @param $sub
+     * @param $topic
      * @param $uid
      */
-    public function my_removeSub($sub, $uid)
+    public function my_removeSub($topic, $uid)
     {
-        if (isset($this->subArr[$sub])) {
-            $this->subArr[$sub]->remove($uid);
+        if (isset($this->subArr[$topic])) {
+            $this->subArr[$topic]->remove($uid);
         }
     }
 
     /**
      * 发布订阅
-     * @param $sub
+     * @param $topic
      * @param $data
      */
-    public function my_pub($sub, $data)
+    public function my_pub($topic, $data)
     {
-        $this->th_pub($sub, $data);
+        $this->th_pub($topic, $data);
         foreach ($this->client as $client) {
-            $client->pub($sub, $data);
+            $client->pub($topic, $data);
+        }
+    }
+
+    /**
+     * event派发
+     * @param $type
+     * @param $data
+     */
+    public function my_dispatchEvent($type, $data)
+    {
+        foreach ($this->client as $client) {
+            $client->dispatchEvent($type, $data);
         }
     }
 
     /**
      * 构建订阅树,只允许5层
-     * @param $sub
+     * @param $topic
      * @return Set
      */
-    protected function buildTrees($sub)
+    protected function buildTrees($topic)
     {
-        $p = explode("/", $sub);
+        $p = explode("/", $topic);
         $countPlies = count($p);
         $result = new Set();
         $result->add("#");
@@ -225,16 +236,16 @@ class ClusterProcess extends Process
     }
 
     /**
-     * @param $sub
+     * @param $topic
      * @param $data
      */
-    public function th_pub($sub, $data)
+    public function th_pub($topic, $data)
     {
-        $tree = $this->buildTrees($sub);
+        $tree = $this->buildTrees($topic);
         foreach ($tree as $one) {
             if (isset($this->subArr[$one])) {
                 foreach ($this->subArr[$one] as $uid) {
-                    get_instance()->sendToUid($uid, $data, true);
+                    get_instance()->pubToUid($uid, $data, $topic);
                 }
             }
         }
@@ -298,7 +309,7 @@ class ClusterProcess extends Process
                     $node_name = $value['Node'];
                     $ips = $value['TaggedAddresses'];
                     if (!isset($ips['lan'])) continue;
-                    if ($ips['lan'] == $this->config['consul']['bind_addr']) continue;
+                    if ($ips['lan'] == getBindIp()) continue;
                     if (!isset($this->client[$node_name])) {
                         $this->addNode($node_name, $ips['lan']);
                     }
@@ -374,6 +385,34 @@ class ClusterProcess extends Process
     }
 
     /**
+     * 获取topic数量
+     * @param $topic
+     * @return int
+     */
+    public function getSubMembersCount($topic)
+    {
+        if (array_key_exists($topic, $this->subArr) && !empty($this->subArr[$topic])) {
+            return $this->subArr[$topic]->count();
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 获取topic Members
+     * @param $topic
+     * @return array
+     */
+    public function getSubMembers($topic)
+    {
+        if (array_key_exists($topic, $this->subArr) && !empty($this->subArr[$topic])) {
+            return $this->subArr[$topic]->toArray();
+        } else {
+            return [];
+        }
+    }
+
+    /**
      * 是否在线
      * @param $uid
      * @return bool
@@ -399,6 +438,21 @@ class ClusterProcess extends Process
             $sum += $set->count();
         }
         return $sum;
+    }
+
+    /**
+     * 获取所有的uids
+     * @return array
+     */
+    public function getAllUids()
+    {
+        $uids = new Set();
+        foreach ($this->map as $node_name => $set) {
+            foreach ($set as $value) {
+                $uids->add($value);
+            }
+        }
+        return $uids->toArray();
     }
 
     /**
